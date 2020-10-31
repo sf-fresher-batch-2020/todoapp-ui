@@ -5,20 +5,35 @@
     <a class="navbar-brand" href="#">PLAN TO WIN</a>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-menu-1">
-            <li class="nav-item active">
-                <a class="nav-link">Home</a>
+            <li class="nav-item">
+                <a class="nav-link btn">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link">About</a>
+                <a class="nav-link btn about">About</a>
             </li>
         </ul>
         <ul class="navbar-nav mt-2 mt-lg-0 nav-menu-1">
             <li class=" nav-item ">
-                <a class="nav-link ">Sign Up</a>
+                <a class="nav-link btn signup">Sign Up</a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link ">Sign In</a>
+            <li class="nav-item">
+                <a class="nav-link btn signin">Sign In</a>
             </li>
         </ul>
     </div>
 </nav>
+
+<script>
+    $("a.home").click(function() {
+        $("#content").load('../views/welcome.html');
+    });
+    $("a.about").click(function() {
+        $("#content").load('../views/about.html');
+    });
+    $("a.signin").click(function() {
+        $("#content").load('../views/signin.html');
+    });
+    $("a.signup").click(function() {
+        $("#content").load('../views/signup.html');
+    });
+</script>
