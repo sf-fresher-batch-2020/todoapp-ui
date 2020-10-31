@@ -9,7 +9,7 @@
                 </blockquote>
                 <hr class="my-4">
                 <p>Let's start planning with our platform and make your goals achieved.</p>
-                <a class="btn btn-primary btn-lg" href="#" role="button">Let's Plan</a>
+                <a class="btn btn-primary btn-lg signup" role="button">Let's Plan</a>
             </div>
         </div>
         <div class="col-lg p-2">
@@ -17,3 +17,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("a.signup").click(function() {
+        console.log("clicked");
+        $("#content").load('../views/signup.html');
+    });
+</script>

@@ -2,14 +2,11 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand home" href="#">PLAN TO WIN</a>
+    <a class="navbar-brand home btn">PLAN TO WIN</a>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-menu-1">
             <li class="nav-item">
                 <a class="nav-link btn home">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn about">About</a>
             </li>
         </ul>
         <ul class="navbar-nav mt-2 mt-lg-0 nav-menu-1">
@@ -26,9 +23,6 @@
 <script>
     $("a.home").click(function() {
         $("#content").load('../views/welcome.html');
-    });
-    $("a.about").click(function() {
-        $("#content").load('../views/about.html');
     });
     $("a.signin").click(function() {
         $("#content").load('../views/signin.html');
