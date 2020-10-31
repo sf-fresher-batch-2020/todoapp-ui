@@ -11,6 +11,7 @@ class AuthServices {
         for (var i = 0; i < temp.length; i++) {
             if (temp[i].email == email) {
                 if (temp[i].password == password) {
+                    localStorage.setItem("LOGGED_IN_USER", JSON.stringify(temp[i]));
                     $("#content").load('../views/dashboard.html');
                 } else {
                     throw "Password incorrect..!";
