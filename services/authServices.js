@@ -15,6 +15,8 @@ class AuthServices {
                         'name': temp[i].name,
                         'email': temp[i].email
                     }));
+                    $('#loggedin').show();
+                    $('#loggedout').hide();
                     $("#content").load('../views/dashboard.html');
                 } else {
                     throw "Password incorrect..!";

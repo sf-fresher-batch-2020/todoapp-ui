@@ -30,14 +30,8 @@
 </nav>
 
 <script>
-    if (localStorage.getItem("LOGGED_IN_ITEM")) {
-        $("#loggedout").hide();
-        $("#loggedin").show();
-    } else {
-        $("#loggein").hide();
-        $("#loggedout").show();
-    }
     $(document).ready(function() {
+        $('#loggedin').hide();
         $("a.home").click(function() {
             if (localStorage.getItem("LOGGED_IN_USER")) {
                 $("#content").load('../views/dashboard.html');
@@ -47,11 +41,23 @@
         });
 
         $("a.signin").click(function() {
-            $("#content").load('../views/signin.html');
+            if (localStorage.getItem("LOGGED_IN_USER")) {
+                $('#loggedin').show();
+                $('#loggedout').hide();
+                $('#content').load('../views/dashboard.html');
+            } else {
+                $("#content").load('../views/signin.html');
+            }
         });
 
         $("a.signup").click(function() {
-            $("#content").load('../views/signup.html');
+            if (localStorage.getItem("LOGGED_IN_USER")) {
+                $('#loggedin').show();
+                $('#loggedout').hide();
+                $('#content').load('../views/dashboard.html');
+            } else {
+                $("#content").load('../views/signup.html');
+            }
         });
 
     });
@@ -59,6 +65,8 @@
 
     function logout() {
         localStorage.removeItem("LOGGED_IN_USER");
+        $('#loggedin').hide();
+        $('#loggedout').show();
         $("#content").load('../views/welcome.html');
     }
 </script>
