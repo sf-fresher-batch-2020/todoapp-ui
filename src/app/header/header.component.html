@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <a routerLink="/welcome" class="navbar-brand home btn">PLAN TO WIN</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-menu-1">
+            <li class="nav-item">
+                <a routerLink="/welcome" class="nav-link btn home">Home</a>
+            </li>
+        </ul>
+        <ul id="loggedout" class="navbar-nav mt-2 mt-lg-0 nav-menu-1">
+            <li class=" nav-item ">
+                <a routerLink="/register" class="nav-link btn signup">Sign Up</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/login" class="nav-link btn signin">Sign In</a>
+            </li>
+        </ul>
+
+        <ul id="loggedin" class="navbar-nav mt-2 mt-lg-0 nav-menu-1">
+            <li class="nav-item">
+                <a routerLink="/profile" class="nav-link btn profile">Profiile</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/welcome" class="nav-link btn" onclick="logout()">Sign Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
