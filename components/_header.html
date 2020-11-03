@@ -40,6 +40,10 @@
             }
         });
 
+        $('a.profile').click(function() {
+            $('#content').load('../views/profile.html');
+        });
+
         $("a.signin").click(function() {
             if (localStorage.getItem("LOGGED_IN_USER")) {
                 $('#loggedin').show();
