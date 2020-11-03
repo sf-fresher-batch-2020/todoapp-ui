@@ -6,6 +6,11 @@ class AuthServices {
         localStorage.setItem("USERS", JSON.stringify(users));
     }
 
+    getCurrentUser() {
+        let currentUser = JSON.parse(localStorage.getItem("LOGGED_IN_USER"));
+        return currentUser;
+    }
+
     login(email, password) {
         var temp = JSON.parse(localStorage.getItem("USERS"));
         for (var i = 0; i < temp.length; i++) {
