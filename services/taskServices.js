@@ -43,11 +43,25 @@ class TaskServices {
         return myTasks;
     }
 
+    getTask(taskId) {
+        let tasks = this.list();
+        for (let task of tasks) {
+            if (task.tid == taskId) {
+                return (task);
+            }
+        }
+    }
+
     openEditModal(taskId) {
+        let eTask = this.getTask(taskId);
+        console.log(eTask);
         let myform = "";
         myform += `<form onsubmit="updateTask()">
                         <div>
-                            <input type="text" class="d-none" name="tid" id="tid" value="${taskId}">
+                            <input type="text" class="d-none" name="tid" id="tid" value="${eTask.tid}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="dec" class="form-control" value="${eTask.task}">
                         </div>
                         <div class="form-group">
                             <select class="form-control form-control-sm" name='newpriority' id="newpriority">
@@ -68,10 +82,11 @@ class TaskServices {
         document.querySelector("#editform").innerHTML = myform;
     }
 
-    update(tid, pri, sts) {
+    update(tid, dec, pri, sts) {
         let tasks = JSON.parse(localStorage.getItem("TASKS"));
         for (let task of tasks) {
             if (task.tid == tid) {
+                task.task = dec;
                 task.priority = pri;
                 task.status = sts;
                 break;

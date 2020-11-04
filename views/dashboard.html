@@ -182,10 +182,20 @@
     function updateTask() {
         event.preventDefault();
 
+        let dec = document.querySelector('#dec').value;
         let tid = document.querySelector('#tid').value;
         let priority = document.querySelector('#newpriority').value;
         let status = document.querySelector('#newstatus').value;
 
-        taskServiceObj.update(tid, priority, status);
+        try {
+            taskServiceObj.update(tid, dec, priority, status);
+
+            document.getElementById("thead").classList.add('bg-success');
+            document.getElementById("thtext").innerHTML = "Success..!";
+            document.getElementById("message").innerHTML = "Task Edited..!";
+            $('.toast').toast('show');
+        } catch (err) {
+
+        }
     }
 </script>
