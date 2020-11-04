@@ -21,18 +21,13 @@ class TaskServices {
     delete(task_id) {
         console.log(task_id);
         let tasks = JSON.parse(localStorage.getItem("TASKS"));
-        console.log(tasks);
-        for (let i = 0; i < tasks.length; i++) {
-            console.log(tasks[i].tid);
-            if (tasks[i].itd == task_id) {
-                // console.log("deleting " + tasks[i].task);
-                // tasks.splice(i, 1);
-                break;
-            } else {
-                console.log('no task');
+        let nTasks = [];
+        for (let task of tasks) {
+            if (task.tid != task_id) {
+                nTasks.push(task);
             }
         }
-        localStorage.setItem("TASKS", JSON.stringify(tasks));
+        localStorage.setItem("TASKS", JSON.stringify(nTasks));
         this.loadTasks();
         this.loadStats();
     }
