@@ -43,14 +43,43 @@ class TaskServices {
         return myTasks;
     }
 
-    update(nPriority, nStatus, task_dic) {
-        let tasks = this.list();
+    openEditModal(taskId) {
+        let myform = "";
+        myform += `<form onsubmit="updateTask()">
+                        <div>
+                            <input type="text" class="d-none" name="tid" id="tid" value="${taskId}">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control form-control-sm" name='newpriority' id="newpriority">
+                            <option value="high">High Priority</>
+                            <option value="medium">Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control form-control-sm" name="newstatus" id="newstatus">
+                            <option value="upcoming">Upcoming</option>
+                            <option value="ongoing">Ongoing</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>`
+        document.querySelector("#editform").innerHTML = myform;
+    }
+
+    update(tid, pri, sts) {
+        let tasks = JSON.parse(localStorage.getItem("TASKS"));
         for (let task of tasks) {
-            if (task.task == task_dic) {
-                task.priority = nPriority;
-                task.status = nStatus;
+            if (task.tid == tid) {
+                task.priority = pri;
+                task.status = sts;
+                break;
             }
         }
+        localStorage.setItem("TASKS", JSON.stringify(tasks));
+        this.loadTasks();
+        this.loadStats();
     }
 
     loadStats() {
@@ -85,7 +114,7 @@ class TaskServices {
         let tasks = this.list();
         let con = "";
         for (let i = 0; i < tasks.length; i++) {
-            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask">Edit</a>`;
+            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
             let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${tasks[i].tid})" data-target="#deletetask">Delete</a>`;
             con += `<div class="row p-2 mx-auto border border-primary">
             <h6>${tasks[i].task}</h6>
