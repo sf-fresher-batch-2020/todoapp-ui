@@ -157,7 +157,8 @@ class TaskServices {
         document.querySelector("#comnum").innerHTML = com;
         document.querySelector("#ongng").innerHTML = ong;
         document.querySelector("#upcmg").innerHTML = upc;
-        document.querySelector("#per").innerHTML = per + "% completed";
+        document.querySelector("#progress").innerHTML = per + "% completed";
+        document.querySelector("#progress").style.width = per + "%";
 
     }
 

@@ -62,35 +62,26 @@ class ProfileService {
 
         let content = "";
 
-        content = `<form onsubmit="updateProfile()">
-        <fieldset id="profileEditForm" disabled>
-            <div class="form-group" hidden>
-                <label for="uid">User Id</label>
-                <input type="text" class="form-control" id="uid" value="${currentProfile.uid}">
-            </div>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" disabled value="${currentProfile.name}">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" disabled value="${currentProfile.email}">
-            </div>
-            <div class="form-group">
-                <label for="fname">Full name</label>
-                <input type="text" class="form-control" id="fname" value="${currentProfile.fullname}" required>
-            </div>
-            <div class="form-group">
-                <label for="company">Company</label>
-                <input type="text" class="form-control" id="comp" value="${currentProfile.company}" required>
-            </div>
-            <div class="form-group">
-                <label for="git">Git Username</label>
-                <input type="text" class="form-control" id="gitid" value="${currentProfile.gitid}" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </fieldset>
-        </form>`;
+        content = `<table class="table table-hover table-sm m-5">
+        <tbody>
+            <tr>
+                <th scope="row">User Name</th>
+                <td>${currentProfile.name}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td>${currentProfile.email}</td>
+            </tr>
+            <tr>
+                <th scope="row">Full Name</th>
+                <td>${currentProfile.fullname}</td>
+            </tr>
+            <tr>
+                <th scope="row">Company</th>
+                <td>${currentProfile.company}</td>
+            </tr>
+        </tbody>
+    </table>`;
 
         document.querySelector("#profileForm").innerHTML = content;
     }
