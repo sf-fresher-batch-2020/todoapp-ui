@@ -65,7 +65,7 @@ class TaskServices {
 
     openEditModal(taskId) {
         let eTask = this.getTask(taskId);
-        console.log(eTask);
+        // console.log(eTask);
         let myform = "";
 
         myform += `<form onsubmit="updateTask()">
@@ -117,7 +117,9 @@ class TaskServices {
     }
 
     update(tid, dec, pri, sts) {
+
         let tasks = JSON.parse(localStorage.getItem("TASKS"));
+
         for (let task of tasks) {
             if (task.tid == tid) {
                 task.task = dec;

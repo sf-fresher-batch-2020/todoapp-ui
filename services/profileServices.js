@@ -17,20 +17,41 @@ class ProfileService {
         }
     }
 
-    updateProfile(uid, fullname, company, gitid) {
+    openEditModal() {
+        authServicesObj = new AuthServices();
+        let currentUser = authServicesObj.getCurrentUser();
+        let currentProfile = this.getProfile(currentUser.uid);
+        let editForm = `<form onsubmit="updateProfile()">
+                        <div>
+                            <input type="text" class="d-none" name="uid" id="uid" value="${currentProfile.uid}" autofocus>
+                        </div>
+                        <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" class="form-control" value="${currentProfile.fullname}">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" class="form-control" value="${currentProfile.company}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>`;
+
+        document.querySelector("#editform").innerHTML = editForm;
+    }
+
+    updateProfile(uid, fullname, company) {
 
         var profiles = JSON.parse(localStorage.getItem("PROFILES"));
 
-        for (let profile in profiles) {
+        for (let profile of profiles) {
             if (profile.uid == uid) {
                 profile.fullname = fullname;
                 profile.company = company;
-                profile.gitid = gitid;
             }
         }
+
         localStorage.setItem("PROFILES", JSON.stringify(profiles));
         this.loadProfile();
-
     }
 
     loadProfile() {
@@ -41,7 +62,7 @@ class ProfileService {
 
         let content = "";
 
-        content += `<form onsubmit="updateProfile()">
+        content = `<form onsubmit="updateProfile()">
         <fieldset id="profileEditForm" disabled>
             <div class="form-group" hidden>
                 <label for="uid">User Id</label>
@@ -72,7 +93,6 @@ class ProfileService {
         </form>`;
 
         document.querySelector("#profileForm").innerHTML = content;
-        // document.querySelector("#profileEditForm").setAttribute('disabled');
     }
 
     createProfile(user) {
@@ -85,8 +105,7 @@ class ProfileService {
             'name': user.name,
             'email': user.email,
             'fullname': "",
-            'company': "",
-            'gitid': ""
+            'company': ""
         };
 
         profiles.push(profile_data);
