@@ -33,8 +33,11 @@ class TaskServices {
     }
 
     list() {
-        var tasks = JSON.parse(localStorage.getItem("TASKS"));
+        var temp = JSON.parse(localStorage.getItem("TASKS"));
+        var tasks = temp ? temp : [];
         var myTasks = [];
+        const authServicesObj = new AuthServices();
+        let currentUser = authServicesObj.getCurrentUser();
         for (let i = 0; i < tasks.length; i++) {
             if (tasks[i].createdBy == currentUser.name) {
                 myTasks.push(tasks[i]);
@@ -52,10 +55,19 @@ class TaskServices {
         }
     }
 
+    getSelectedPOption(priority, optionvalue) {
+        return priority == optionvalue ? "selected" : "";
+    }
+
+    getSelectedSOption(status, optionvalue) {
+        return status == optionvalue ? "selected" : "";
+    }
+
     openEditModal(taskId) {
         let eTask = this.getTask(taskId);
         console.log(eTask);
         let myform = "";
+
         myform += `<form onsubmit="updateTask()">
                         <div>
                             <input type="text" class="d-none" name="tid" id="tid" value="${eTask.tid}">
@@ -65,21 +77,43 @@ class TaskServices {
                         </div>
                         <div class="form-group">
                             <select class="form-control form-control-sm" name='newpriority' id="newpriority">
-                            <option value="high">High Priority</>
-                            <option value="medium">Medium Priority</option>
-                            <option value="low">Low Priority</option>
-                        </select>
+                                <option value="high" ${this.getSelectedPOption(eTask.priority,"high")}>High Priority</>
+                                <option value="medium" ${this.getSelectedPOption(eTask.priority,"medium")}>Medium Priority</option>
+                                <option value="low" ${this.getSelectedPOption(eTask.priority,"low")}>Low Priority</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control form-control-sm" name="newstatus" id="newstatus">
-                            <option value="upcoming">Upcoming</option>
-                            <option value="ongoing">Ongoing</option>
-                            <option value="completed">Completed</option>
-                        </select>
+                                <option value="upcoming" ${this.getSelectedSOption(eTask.status,"upcoming")}>Upcoming</option>
+                                <option value="ongoing" ${this.getSelectedSOption(eTask.status,"ongoing")}>Ongoing</option>
+                                <option value="completed" ${this.getSelectedSOption(eTask.status,"completed")}>Completed</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
-                    </form>`
+                    </form>`;
         document.querySelector("#editform").innerHTML = myform;
+    }
+
+    openViewModal(taskId) {
+        let eTask = this.getTask(taskId);
+        console.log(eTask);
+        let myform = "";
+        myform += `<form>
+                        <div>
+                            <input class="d-none" name="tid" id="tid"  value="${eTask.tid}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="dec" class="form-control" disabled value="${eTask.task}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="dec" class="form-control" disabled value="${eTask.priority}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="dec" class="form-control" disabled value="${eTask.status}">
+                        </div>
+                        <button class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    </form>`;
+        document.querySelector("#viewform").innerHTML = myform;
     }
 
     update(tid, dec, pri, sts) {
@@ -129,18 +163,17 @@ class TaskServices {
         let tasks = this.list();
         let con = "";
         for (let i = 0; i < tasks.length; i++) {
-            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
+            let editButton = `<a type="button" class="btn text-primary" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
+            let viewButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#viewtask" onClick="taskServiceObj.openViewModal(${tasks[i].tid})">View</a>`;
             let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${tasks[i].tid})" data-target="#deletetask">Delete</a>`;
-            con += `<div class="row p-2 mx-auto border border-primary">
-            <h6>${tasks[i].task}</h6>
-            <hr>
-            <p><span class="badge badge-pill p-1 badge-primary">${tasks[i].priority}</span></p>
-            <hr>
-            <p><span class="badge badge-pill p-1 badge-warning">${tasks[i].status}</span></p>
-            <hr>
-            ${editButton}
-            ${deleteButton}
-            </div>`;
+            con += `<tr>
+                        <td>${tasks[i].task}</td>
+                        <td>${tasks[i].priority}</td>
+                        <td>${tasks[i].status}</td>
+                        <td>${editButton}</td>
+                        <td>${viewButton}</td>
+                        <td>${deleteButton}</td>
+                        </tr>`;
         }
         document.querySelector("#taskslist").innerHTML = con;
     }
@@ -150,18 +183,15 @@ class TaskServices {
         let tasks = _.sortBy(tasksO, val);
         let con = "";
         for (let i = 0; i < tasks.length; i++) {
-            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask">Edit</a>`;
+            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
             let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${tasks[i].tid})" data-target="#deletetask">Delete</a>`;
-            con += `<div class="row p-2 mx-auto border border-primary">
-            <h6>${tasks[i].task}</h6>
-            <hr>
-            <p><span class="badge badge-pill p-1 badge-primary">${tasks[i].priority}</span></p>
-            <hr>
-            <p><span class="badge badge-pill p-1 badge-warning">${tasks[i].status}</span></p>
-            <hr>
-            ${editButton}
-            ${deleteButton}
-            </div>`;
+            con += `<tr>
+                        <td>${tasks[i].task}</td>
+                        <td>${tasks[i].priority}</td>
+                        <td>${tasks[i].status}</td>
+                        <td>${editButton}</td>
+                        <td>${deleteButton}</td>
+                        </tr>`;
         }
         document.querySelector("#taskslist").innerHTML = con;
     }
@@ -178,18 +208,15 @@ class TaskServices {
         }
         let con = "";
         for (let i = 0; i < tasks.length; i++) {
-            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask">Edit</a>`;
+            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
             let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${tasks[i].tid})" data-target="#deletetask">Delete</a>`;
-            con += `<div class="row p-2 mx-auto border border-primary">
-            <h6>${tasks[i].task}</h6>
-            <hr>
-            <p><span class="badge badge-pill p-1 badge-primary">${tasks[i].priority}</span></p>
-            <hr>
-            <p><span class="badge badge-pill p-1 badge-warning">${tasks[i].status}</span></p>
-            <hr>
-            ${editButton}
-            ${deleteButton}
-            </div>`;
+            con += `<tr>
+                        <td>${tasks[i].task}</td>
+                        <td>${tasks[i].priority}</td>
+                        <td>${tasks[i].status}</td>
+                        <td>${editButton}</td>
+                        <td>${deleteButton}</td>
+                        </tr>`;
         }
         document.querySelector("#taskslist").innerHTML = con;
     }

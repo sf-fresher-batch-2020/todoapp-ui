@@ -1,9 +1,13 @@
 class AuthServices {
+
     register(user_data) {
         var temp = JSON.parse(localStorage.getItem("USERS"));
         var users = temp ? temp : [];
         users.push(user_data);
         localStorage.setItem("USERS", JSON.stringify(users));
+
+        const profileServiceObj = new ProfileService();
+        profileServiceObj.createProfile(user_data);
     }
 
     getCurrentUser() {
@@ -17,6 +21,7 @@ class AuthServices {
             if (temp[i].email == email) {
                 if (temp[i].password == password) {
                     localStorage.setItem("LOGGED_IN_USER", JSON.stringify({
+                        'uid': temp[i].uid,
                         'name': temp[i].name,
                         'email': temp[i].email
                     }));
