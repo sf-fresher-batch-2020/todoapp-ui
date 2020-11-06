@@ -19,14 +19,14 @@ class AuthService {
 
     // logs the user in
     login(email, password) {
-        var temp = JSON.parse(localStorage.getItem("USERS"));
-        for (var i = 0; i < temp.length; i++) {
-            if (temp[i].email == email) {
-                if (temp[i].password == password) {
+        var users = JSON.parse(localStorage.getItem("USERS"));
+        for (let user of users) {
+            if (user.email == email) {
+                if (user.password == password) {
                     localStorage.setItem("LOGGED_IN_USER", JSON.stringify({
-                        'uid': temp[i].uid,
-                        'name': temp[i].name,
-                        'email': temp[i].email
+                        'uid': user.uid,
+                        'name': user.name,
+                        'email': user.email
                     }));
                 } else {
                     throw "Password incorrect..!";

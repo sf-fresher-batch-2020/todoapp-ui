@@ -41,9 +41,9 @@ class TaskService {
         var myTasks = [];
         const authServicesObj = new AuthService();
         let currentUser = authServicesObj.getCurrentUser();
-        for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i].createdBy == currentUser.name) {
-                myTasks.push(tasks[i]);
+        for (let task in tasks) {
+            if (task.createdBy == currentUser.name) {
+                myTasks.push(task);
             }
         }
         return myTasks;
@@ -175,14 +175,14 @@ class TaskService {
         // gets list of tasks and renders with dashboard ui
         let tasks = this.list();
         let con = "";
-        for (let i = 0; i < tasks.length; i++) {
-            let editButton = `<a type="button" class="btn text-primary" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
-            let viewButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#viewtask" onClick="taskServiceObj.openViewModal(${tasks[i].tid})">View</a>`;
-            let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${tasks[i].tid})" data-target="#deletetask">Delete</a>`;
+        for (let task of tasks) {
+            let editButton = `<a type="button" class="btn text-primary" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${task.tid})">Edit</a>`;
+            let viewButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#viewtask" onClick="taskServiceObj.openViewModal(${task.tid})">View</a>`;
+            let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${task.tid})" data-target="#deletetask">Delete</a>`;
             con += `<tr>
-                        <td>${tasks[i].task}</td>
-                        <td>${tasks[i].priority}</td>
-                        <td>${tasks[i].status}</td>
+                        <td>${task.task}</td>
+                        <td>${task.priority}</td>
+                        <td>${task.status}</td>
                         <td>${editButton}</td>
                         <td>${viewButton}</td>
                         <td>${deleteButton}</td>
@@ -196,14 +196,16 @@ class TaskService {
         let tasksO = this.list();
         let tasks = _.sortBy(tasksO, val);
         let con = "";
-        for (let i = 0; i < tasks.length; i++) {
-            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
-            let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${tasks[i].tid})" data-target="#deletetask">Delete</a>`;
+        for (let task in tasks) {
+            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${task.tid})">Edit</a>`;
+            let viewButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#viewtask" onClick="taskServiceObj.openViewModal(${task.tid})">View</a>`;
+            let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${task.tid})" data-target="#deletetask">Delete</a>`;
             con += `<tr>
-                        <td>${tasks[i].task}</td>
-                        <td>${tasks[i].priority}</td>
-                        <td>${tasks[i].status}</td>
+                        <td>${task.task}</td>
+                        <td>${task.priority}</td>
+                        <td>${task.status}</td>
                         <td>${editButton}</td>
+                        <td>${viewButton}</td>
                         <td>${deleteButton}</td>
                         </tr>`;
         }
@@ -222,14 +224,16 @@ class TaskService {
             tasks = this.list();
         }
         let con = "";
-        for (let i = 0; i < tasks.length; i++) {
-            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${tasks[i].tid})">Edit</a>`;
-            let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${tasks[i].tid})" data-target="#deletetask">Delete</a>`;
+        for (let task in tasks) {
+            let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${task.tid})">Edit</a>`;
+            let viewButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#viewtask" onClick="taskServiceObj.openViewModal(${task.tid})">View</a>`;
+            let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${task.tid})" data-target="#deletetask">Delete</a>`;
             con += `<tr>
-                        <td>${tasks[i].task}</td>
-                        <td>${tasks[i].priority}</td>
-                        <td>${tasks[i].status}</td>
+                        <td>${task.task}</td>
+                        <td>${task.priority}</td>
+                        <td>${task.status}</td>
                         <td>${editButton}</td>
+                        <td>${viewButton}</td>
                         <td>${deleteButton}</td>
                         </tr>`;
         }

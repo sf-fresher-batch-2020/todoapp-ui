@@ -5,7 +5,6 @@ class RegisterValidator {
         let temp = JSON.parse(localStorage.getItem("USERS"));
         var users = temp ? temp : [];
 
-
         for (let user of users) {
             if (user.name == uName) {
                 return false;
