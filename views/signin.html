@@ -52,8 +52,13 @@
             // logging in user
             const authServiceObj = new AuthService();
             authServiceObj.login(email, password);
+
+            $('#loggedin').show();
+            $('#loggedout').hide();
+            $("#content").load('../views/dashboard.html');
+
         } catch (err) {
-            document.getElementById("thead").classList.add('bg-warning');
+            document.getElementById("thead").classList.add('bg-error');
             document.getElementById("thtext").innerHTML = "Error..!";
             document.getElementById("message").innerHTML = err;
             $('.toast').toast('show');

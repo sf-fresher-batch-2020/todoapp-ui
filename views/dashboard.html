@@ -189,6 +189,11 @@
     authServicesObj = new AuthService();
     currentUser = authServicesObj.getCurrentUser();
 
+    document.getElementById("thead").classList.add('bg-success');
+    document.getElementById("thtext").innerHTML = "Success..!";
+    document.getElementById("message").innerHTML = "Logged in successfully";
+    $('.toast').toast('show');
+
     document.querySelector("#dHead").innerHTML = currentUser.name + "'s Dashboard";
 
     // function to call add task and passes form data
