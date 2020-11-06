@@ -58,7 +58,7 @@
             $("#content").load('../views/dashboard.html');
 
         } catch (err) {
-            document.getElementById("thead").classList.add('bg-error');
+            document.getElementById("thead").classList.add('bg-danger');
             document.getElementById("thtext").innerHTML = "Error..!";
             document.getElementById("message").innerHTML = err;
             $('.toast').toast('show');
