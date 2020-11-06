@@ -41,7 +41,7 @@ class TaskService {
         var myTasks = [];
         const authServicesObj = new AuthService();
         let currentUser = authServicesObj.getCurrentUser();
-        for (let task in tasks) {
+        for (let task of tasks) {
             if (task.createdBy == currentUser.name) {
                 myTasks.push(task);
             }
@@ -196,7 +196,7 @@ class TaskService {
         let tasksO = this.list();
         let tasks = _.sortBy(tasksO, val);
         let con = "";
-        for (let task in tasks) {
+        for (let task of tasks) {
             let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${task.tid})">Edit</a>`;
             let viewButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#viewtask" onClick="taskServiceObj.openViewModal(${task.tid})">View</a>`;
             let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${task.tid})" data-target="#deletetask">Delete</a>`;
@@ -224,7 +224,7 @@ class TaskService {
             tasks = this.list();
         }
         let con = "";
-        for (let task in tasks) {
+        for (let task of tasks) {
             let editButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#edittask" onClick="taskServiceObj.openEditModal(${task.tid})">Edit</a>`;
             let viewButton = `<a type="button" class="btn text-info" data-toggle="modal" data-target="#viewtask" onClick="taskServiceObj.openViewModal(${task.tid})">View</a>`;
             let deleteButton = `<a type="button" class="btn text-danger" onClick="taskServiceObj.delete(${task.tid})" data-target="#deletetask">Delete</a>`;
