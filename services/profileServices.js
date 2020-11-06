@@ -8,6 +8,7 @@ class ProfileService {
         this.loadProfile();
     }
 
+    // returns a profile based on the uid passed
     getProfile(uid) {
         var profiles = JSON.parse(localStorage.getItem("PROFILES"));
         for (let profile of profiles) {
@@ -17,6 +18,8 @@ class ProfileService {
         }
     }
 
+
+    // passes the profile data to the edit profile modal
     openEditModal() {
         authServicesObj = new AuthServices();
         let currentUser = authServicesObj.getCurrentUser();
@@ -39,6 +42,7 @@ class ProfileService {
         document.querySelector("#editform").innerHTML = editForm;
     }
 
+    // updates the profile data with passed values
     updateProfile(uid, fullname, company) {
 
         var profiles = JSON.parse(localStorage.getItem("PROFILES"));
@@ -54,6 +58,7 @@ class ProfileService {
         this.loadProfile();
     }
 
+    // fetches the profile of current user and renders with user profile page
     loadProfile() {
         authServicesObj = new AuthServices();
         let currentUser = authServicesObj.getCurrentUser();
@@ -86,8 +91,8 @@ class ProfileService {
         document.querySelector("#profileForm").innerHTML = content;
     }
 
+    // creates a user profile
     createProfile(user) {
-
         var temp = JSON.parse(localStorage.getItem("PROFILES"));
         var profiles = temp ? temp : [];
 

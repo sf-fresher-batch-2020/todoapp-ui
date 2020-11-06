@@ -1,5 +1,6 @@
 class AuthServices {
 
+    // registers the user
     register(user_data) {
         var temp = JSON.parse(localStorage.getItem("USERS"));
         var users = temp ? temp : [];
@@ -10,11 +11,13 @@ class AuthServices {
         profileServiceObj.createProfile(user_data);
     }
 
+    // returns the logged in user
     getCurrentUser() {
         let currentUser = JSON.parse(localStorage.getItem("LOGGED_IN_USER"));
         return currentUser;
     }
 
+    // logs the user in
     login(email, password) {
         var temp = JSON.parse(localStorage.getItem("USERS"));
         for (var i = 0; i < temp.length; i++) {

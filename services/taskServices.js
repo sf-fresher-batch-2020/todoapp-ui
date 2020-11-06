@@ -9,6 +9,7 @@ class TaskServices {
         this.loadStats();
     }
 
+    // function to add tasks
     add(task_data) {
         var temp = JSON.parse(localStorage.getItem("TASKS"));
         var tasks = temp ? temp : [];
@@ -18,6 +19,7 @@ class TaskServices {
         this.loadStats();
     }
 
+    // function that deletes tasks
     delete(task_id) {
         console.log(task_id);
         let tasks = JSON.parse(localStorage.getItem("TASKS"));
@@ -32,6 +34,7 @@ class TaskServices {
         this.loadStats();
     }
 
+    // function to list user tasks
     list() {
         var temp = JSON.parse(localStorage.getItem("TASKS"));
         var tasks = temp ? temp : [];
@@ -46,6 +49,7 @@ class TaskServices {
         return myTasks;
     }
 
+    // function that returns particular task based on task id
     getTask(taskId) {
         let tasks = this.list();
         for (let task of tasks) {
@@ -55,14 +59,17 @@ class TaskServices {
         }
     }
 
+    // sets the selected attribute for priority option
     getSelectedPOption(priority, optionvalue) {
         return priority == optionvalue ? "selected" : "";
     }
 
+    // sets the selected attribute for status option
     getSelectedSOption(status, optionvalue) {
         return status == optionvalue ? "selected" : "";
     }
 
+    // passes the task details to the modal for editing particular tak
     openEditModal(taskId) {
         let eTask = this.getTask(taskId);
         // console.log(eTask);
@@ -94,6 +101,7 @@ class TaskServices {
         document.querySelector("#editform").innerHTML = myform;
     }
 
+    // passes the task details to the view modal
     openViewModal(taskId) {
         let eTask = this.getTask(taskId);
         console.log(eTask);
@@ -116,6 +124,7 @@ class TaskServices {
         document.querySelector("#viewform").innerHTML = myform;
     }
 
+    // updates the task when called and reloads the task list
     update(tid, dec, pri, sts) {
 
         let tasks = JSON.parse(localStorage.getItem("TASKS"));
@@ -132,8 +141,8 @@ class TaskServices {
         this.loadTasks();
         this.loadStats();
     }
-
     loadStats() {
+        // function that loads the statistics of tasks
         let tasks = this.list();
         let all = tasks.length;
         let com = 0,
@@ -163,6 +172,7 @@ class TaskServices {
     }
 
     loadTasks() {
+        // gets list of tasks and renders with dashboard ui
         let tasks = this.list();
         let con = "";
         for (let i = 0; i < tasks.length; i++) {
@@ -176,12 +186,13 @@ class TaskServices {
                         <td>${editButton}</td>
                         <td>${viewButton}</td>
                         <td>${deleteButton}</td>
-                        </tr>`;
+                    </tr>`;
         }
         document.querySelector("#taskslist").innerHTML = con;
     }
 
     sortTasks(val) {
+        // sorts the tasks based on status or priority
         let tasksO = this.list();
         let tasks = _.sortBy(tasksO, val);
         let con = "";
@@ -200,6 +211,7 @@ class TaskServices {
     }
 
     filterTasks(val) {
+        // filters the tasks based on the requested values of status or priority
         let tasksO = this.list();
         let tasks;
         if (val == 'ongoing' || val == 'upcoming' || val == 'completed') {

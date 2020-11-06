@@ -1,16 +1,19 @@
 <div class="h-100 container-fluid bg-light">
+    <!-- nav header bar -->
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">Profile</a>
     </nav>
+    <!-- main -->
     <div class="border">
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <img class="rounded mx-auto d-block" src="../assets/images/profile.jpg" height="200" alt="profile">
                 <div class="row justify-content-end">
-                    <!-- <button type="submit" class="btn btn-warning" onclick="profileServiceObj.editProfile()">Edit</button> -->
+                    <!-- edit profile button -->
                     <button class="btn btn-warning" data-toggle="modal" data-target="#editprofile" onclick="profileServiceObj.openEditModal()">Edit Profile</button>
                 </div>
+                <!-- profile data renders from backed -->
                 <div id="profileForm">
                     <!-- <table class="table table-hover table-dark m-5">
                         <tbody>
@@ -66,21 +69,23 @@
 </div>
 
 <script>
+    // calls the initial function from profile services
     profileServiceObj = new ProfileService();
     profileServiceObj.ngOnInit();
 
 
+    // function to get update from data and call function from profile services to update
     function updateProfile() {
 
         event.preventDefault();
 
+        // gets form data
         let uid = document.querySelector("#uid").value;
         let fullname = document.querySelector("#fullname").value;
         let company = document.querySelector("#company").value;
 
-        // console.log(uid, fullname, company);
-
         try {
+            // calling update function
             profileServiceObj.updateProfile(uid, fullname, company);
 
             document.getElementById("thead").classList.add('bg-success');
@@ -89,7 +94,7 @@
             $('.toast').toast('show');
         } catch (err) {
             document.getElementById("thead").classList.add('bg-warning');
-            document.getElementById("thtext").innerHTML = "Warning..!";
+            document.getElementById("thtext").innerHTML = "Error..!";
             document.getElementById("message").innerHTML = err;
             $('.toast').toast('show');
         }

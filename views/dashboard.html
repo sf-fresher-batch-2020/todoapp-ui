@@ -1,8 +1,11 @@
 <div class="h-100 container-fluid bg-light">
+    <!-- nav header bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <p class="navbar-brand home" id="dHead">Dashboard</p>
     </nav>
+    <!-- main content -->
     <div class="row w-100 justify-content-md-center" style="min-height: 85%;">
+        <!-- status column -->
         <div class="col-lg-3 w-100">
             <ul class="list-group">
                 <li class="list-group-item active">Statistics</li>
@@ -12,13 +15,17 @@
                 <li class="list-group-item">Upcoming <span class="badge badge-danger" id="upcmg"></span></li>
             </ul>
         </div>
+        <!-- task list column -->
         <div class="col-lg-9 w-100 border p-3">
+            <!-- navbar within the tasks list to provide a form for sort and filter -->
             <nav class="navbar border navbar-light bg-light mb-2">
                 <a class="navbar-brand">
                     <h4>Tasks</h4>
                 </a>
+                <!-- inline form with sort and filter buttons -->
                 <form class="form-inline">
                     <div class="form-group mr-2">
+                        <!-- select for sorting data -->
                         <select class="form-control form-control-sm" id="sort_by" onchange="taskServiceObj.sortTasks(this.value)">
                             <option value="all">Sort By</option>
                             <option value="priority">Priority</option>
@@ -26,6 +33,7 @@
                         </select>
                     </div>
                     <div class="form-group mr-2">
+                        <!-- select for filtering data -->
                         <select class="form-control form-control-sm" id="filter_priority" onchange="taskServiceObj.filterTasks(this.value)">
                             <option value="all">Filter</option>
                             <option value="high">High Priority</option>
@@ -36,12 +44,15 @@
                             <option value="completed">Completed</option>
                         </select>
                     </div>
+                    <!-- button for adding task -->
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addtask">Add Task</button>
                 </form>
             </nav>
+            <!-- progress bar showing the percentage of tasks completed -->
             <div class="progress m-3">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 10%">25%</div>
             </div>
+            <!-- list of tasks -->
             <div class="row">
                 <div class="col-lg">
                     <table class="table">
@@ -55,6 +66,7 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
+                        <!-- renders from the backed -->
                         <tbody id="taskslist">
                             <!-- <tr>
                                 <td>Do Something</td>
@@ -70,6 +82,7 @@
             </div>
         </div>
     </div>
+    <!-- toast for showing error or success -->
     <div class="toast" data-autohide="false" style="position: absolute; top: 10%; right: 2%; width: 250px;">
         <div id="thead" class="toast-header">
             <strong id="thtext" class="mr-auto"></strong>
@@ -168,14 +181,17 @@
 </div>
 
 <script>
+    // calling dashboard initial function
     taskServiceObj = new TaskServices();
     taskServiceObj.ngOnInit();
 
+    // getting current your
     authServicesObj = new AuthServices();
     currentUser = authServicesObj.getCurrentUser();
 
     document.querySelector("#dHead").innerHTML = currentUser.name + "'s Dashboard";
 
+    // function to call add task and passes form data
     function addTask() {
         event.preventDefault();
 
@@ -201,7 +217,7 @@
             $('.toast').toast('show');
         } catch (err) {
             document.getElementById("thead").classList.add('bg-warning');
-            document.getElementById("thtext").innerHTML = "Warning..!";
+            document.getElementById("thtext").innerHTML = "Error..!";
             document.getElementById("message").innerHTML = err;
             $('.toast').toast('show');
         }
