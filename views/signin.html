@@ -50,7 +50,7 @@
 
         try {
             // logging in user
-            const authServiceObj = new AuthServices();
+            const authServiceObj = new AuthService();
             authServiceObj.login(email, password);
         } catch (err) {
             document.getElementById("thead").classList.add('bg-warning');

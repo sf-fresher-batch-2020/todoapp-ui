@@ -1,4 +1,4 @@
-class AuthServices {
+class AuthService {
 
     // registers the user
     register(user_data) {

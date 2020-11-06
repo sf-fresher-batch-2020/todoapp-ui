@@ -1,4 +1,4 @@
-class TaskServices {
+class TaskService {
 
     constructor(taskService) {
         this.taskService = taskService;
@@ -39,7 +39,7 @@ class TaskServices {
         var temp = JSON.parse(localStorage.getItem("TASKS"));
         var tasks = temp ? temp : [];
         var myTasks = [];
-        const authServicesObj = new AuthServices();
+        const authServicesObj = new AuthService();
         let currentUser = authServicesObj.getCurrentUser();
         for (let i = 0; i < tasks.length; i++) {
             if (tasks[i].createdBy == currentUser.name) {

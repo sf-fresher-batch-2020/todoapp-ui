@@ -21,7 +21,7 @@ class ProfileService {
 
     // passes the profile data to the edit profile modal
     openEditModal() {
-        authServicesObj = new AuthServices();
+        authServicesObj = new AuthService();
         let currentUser = authServicesObj.getCurrentUser();
         let currentProfile = this.getProfile(currentUser.uid);
         let editForm = `<form onsubmit="updateProfile()">
@@ -60,7 +60,7 @@ class ProfileService {
 
     // fetches the profile of current user and renders with user profile page
     loadProfile() {
-        authServicesObj = new AuthServices();
+        authServicesObj = new AuthService();
         let currentUser = authServicesObj.getCurrentUser();
 
         let currentProfile = this.getProfile(currentUser.uid);

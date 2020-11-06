@@ -182,11 +182,11 @@
 
 <script>
     // calling dashboard initial function
-    taskServiceObj = new TaskServices();
+    taskServiceObj = new TaskService();
     taskServiceObj.ngOnInit();
 
     // getting current your
-    authServicesObj = new AuthServices();
+    authServicesObj = new AuthService();
     currentUser = authServicesObj.getCurrentUser();
 
     document.querySelector("#dHead").innerHTML = currentUser.name + "'s Dashboard";
