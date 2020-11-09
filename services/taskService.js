@@ -15,23 +15,17 @@ class TaskService {
         var tasks = temp ? temp : [];
         tasks.push(task_data);
         localStorage.setItem("TASKS", JSON.stringify(tasks));
-        this.loadTasks();
-        this.loadStats();
+        this.ngOnInit();
     }
 
     // function that deletes tasks
     delete(task_id) {
         console.log(task_id);
         let tasks = JSON.parse(localStorage.getItem("TASKS"));
-        let nTasks = [];
-        for (let task of tasks) {
-            if (task.tid != task_id) {
-                nTasks.push(task);
-            }
-        }
-        localStorage.setItem("TASKS", JSON.stringify(nTasks));
-        this.loadTasks();
-        this.loadStats();
+        let index = tasks.findIndex(obj => obj.tid == task_id);
+        tasks.splice(index, 1);
+        localStorage.setItem("TASKS", JSON.stringify(tasks));
+        this.ngOnInit();
     }
 
     // function to list user tasks
@@ -138,8 +132,7 @@ class TaskService {
             }
         }
         localStorage.setItem("TASKS", JSON.stringify(tasks));
-        this.loadTasks();
-        this.loadStats();
+        this.ngOnInit();
     }
     loadStats() {
         // function that loads the statistics of tasks
